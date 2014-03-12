@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +26,14 @@ public class threeD_image_viewer {
 		System.out.print("Do you want to draw the objects wireframe? (Y/N):");
 		boolean wireframe=true;
 		if(r.next().toLowerCase().equals("n")){wireframe=false;};
-		System.out.print("Please enter the object's filename:");
-		String filename=r.next();
+		String filename="";
+		while(filename.equals("") || !new File("example 3D images\\" + filename).exists()){
+			System.out.print("Please enter the object's filename:");
+			filename=r.next();
+			if(!new File("example 3D images\\" + filename).exists()){
+				System.out.println("Invalid file. Please reenter");
+			}
+		}
 		r.close();
 		System.out.println("WASD to move, arrow keys to rotate, numpad +/- to zoom.");
 		createAndShowGUI(500,500,sort_type,wireframe,filename);
